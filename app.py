@@ -14,11 +14,12 @@ from PIL import Image
 import torch
 from transformers import BlipProcessor, BlipForConditionalGeneration
 import google.generativeai as genai
-from io import BytesIO
-from fpdf import FPDF
 
 # ====================== CONFIG ==========================
+# Load BLIP fine-tuned model from Hugging Face repo
 BLIP_REPO = "sufyanbinimran/blip-finetuned"
+
+# Configure Gemini API Key (replace with your key)
 GEMINI_API_KEY = "AIzaSyA4mHi9wTVd4ruEEAGT5mwchfbqi6NTSII"
 
 # ====================== CUSTOM STYLES ==========================
@@ -28,7 +29,6 @@ custom_css = """
 body, .stApp {
     background-color: #111111;
     color: #f0f0f0;
-    font-family: 'Arial', sans-serif;
 }
 
 /* Title styling - like crime scene tape */
@@ -41,7 +41,7 @@ h1 {
         black 20px
     );
     color: black;
-    padding: 0.6rem;
+    padding: 0.5rem;
     text-align: center;
     border-radius: 10px;
 }
@@ -85,13 +85,6 @@ input, textarea {
     border-radius: 12px;
     background-color: #222;
     margin-top: 1rem;
-    color: #f0f0f0;
-}
-
-/* Sidebar styling */
-.css-6qob1r {
-    background-color: #222 !important;
-    color: #FFD700 !important;
 }
 
 /* Footer */
@@ -102,21 +95,6 @@ footer {
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
-
-# ====================== SIDEBAR INFO ==========================
-with st.sidebar:
-    st.image("https://img.freepik.com/premium-photo/crime-scene-tape-yellow-isolated-black-background_670382-30735.jpg", use_column_width=True)
-    st.markdown("## ℹ️ App Info")
-    st.markdown(
-        """
-        - Upload **crime scene image** 🖼️  
-        - Ask investigation **question** ❓  
-        - Get **AI-powered crime report** 🕵️  
-        - Download full report as **PDF** 📝  
-        """
-    )
-    st.markdown("---")
-    st.markdown("🔗 **Built by Muhammad Sufyan Malik**  \nPowered by Hugging Face & Gemini Pro")
 
 # ====================== SETUP ==========================
 @st.cache_resource
@@ -173,29 +151,6 @@ if uploaded_image:
         st.markdown(f"<div class='report-card'><strong>🖼️ Image Description:</strong><br>{caption}</div>", unsafe_allow_html=True)
         st.markdown(f"<div class='report-card'><strong>🔍 Investigation Report:</strong><br>{investigation_solution}</div>", unsafe_allow_html=True)
 
-        # ======== PDF DOWNLOAD ========
-        def create_pdf(caption, report):
-            pdf = FPDF()
-            pdf.add_page()
-            pdf.set_font("Arial", "B", 16)
-            pdf.cell(200, 10, "Crime Scene Investigation Report", ln=True, align="C")
-            pdf.ln(10)
-
-            pdf.set_font("Arial", "", 12)
-            pdf.multi_cell(0, 10, f"🖼️ Scene Description:\n{caption}\n\n🔍 Investigation Report:\n{report}")
-            buffer = BytesIO()
-            pdf.output(buffer)
-            buffer.seek(0)
-            return buffer
-
-        pdf_buffer = create_pdf(caption, investigation_solution)
-        st.download_button(
-            label="📄 Download Investigation Report (PDF)",
-            data=pdf_buffer,
-            file_name="investigation_report.pdf",
-            mime="application/pdf"
-        )
-
 # ====================== FOOTER ==========================
 st.markdown("---")
-st.caption("© 2025 Muhammad Sufyan Malik — All Rights Reserved")
+st.caption("🔗 Built by Muhammad Sufyan Malik — Powered by Hugging Face & Gemini Pro")
