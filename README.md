@@ -96,7 +96,7 @@ Make sure to set your **Gemini API key** inside `app.py`.
 
 | Uploaded Crime Scene Image | Investigation Report |
 |:----------------------------|:---------------------|
-| ![sample1](Screenshot 2025-05-04 223515.png) | **Image Description:** A blood-stained knife lying near a broken window. <br> **LLM Report:** Suspected break-in and assault. Fingerprints and DNA evidence collection recommended. |
+| ![sample1](https://github.com/sufyanbinimran/VLM-fine-tuning-and-downstream-application-development/blob/main/Screenshot%202025-05-04%20223515.png?raw=true) | **Image Description:** A blood-stained knife lying near a broken window. <br> **LLM Report:** Suspected break-in and assault. Fingerprints and DNA evidence collection recommended. |
 | ![sample2](https://via.placeholder.com/200x150?text=Crime+Scene+2) | **Image Description:** Scattered jewelry and an open safe. <br> **LLM Report:** Suspected burglary. Investigate entry points and interview possible witnesses. |
 
 (*You can replace placeholders with real sample images once you upload!*)
